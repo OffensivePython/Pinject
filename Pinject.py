@@ -122,8 +122,8 @@ def main():
 	print("[+] Local Machine: %s"%src_host)
 	print("[+] Remote Machine: %s"%dst_host)
 	s = socket.socket(socket.AF_INET, 
-			  		  socket.SOCK_RAW, 
-			  		  socket.IPPROTO_RAW)
+			  socket.SOCK_RAW, 
+			  socket.IPPROTO_RAW)
 	print("[+] Raw scoket created")
 	data = "TEST!!"
 	print("[+] Data to inject: %s"%data)
