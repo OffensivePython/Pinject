@@ -257,7 +257,7 @@ def main():
     else:
         dst_host = socket.gethostbyname(options.dst)
     if options.src == None:
-        # get the current Network Interface
+        # Get the current Network Interface
         src_host = socket.gethostbyname(socket.gethostname())
     else:
         src_host = options.src
