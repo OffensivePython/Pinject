@@ -272,9 +272,9 @@ def main():
 	tcpobj = TCP(1234, 80)
 	response = send(ipobj, tcpobj, iface="eth0", retry=1, timeout=0.3)
 	if response:
-            ip = ipobj.unpack(response)
-            response = response[ip.ihl:]
-            tcp = tcpobj.unpack(response)
+        ip = ipobj.unpack(response)
+        response = response[ip.ihl:]
+        tcp = tcpobj.unpack(response)
         print "IP Header:", ip.list
         print "TCP Header:", tcp.list
 if __name__=="__main__":
