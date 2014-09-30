@@ -246,7 +246,6 @@ def main():
 	ipobj = IP(src_host, dst_host)
 	# TCP Header
 	tcpobj = TCP(1234, 80)
-	t = time.time()
 	response = send(ipobj, tcpobj, iface="eth0", retry=1, timeout=0.3)
 	if res:
             ip = ipobj.unpack(res)
