@@ -137,6 +137,18 @@ class IP(object):
             _ip.checksum = hex(iph[7])
             _ip.src = socket.inet_ntoa(iph[8])
             _ip.dst = socket.inet_ntoa(iph[9])
+            _ip.list = [
+                _ip.ihl,
+                _ip.ver,
+                _ip.tos,
+                _ip.length,
+                _ip.ids,
+                _ip.flags,
+                _ip.offset,
+                _ip.ttl,
+                _ip.protocol,
+                _ip.src,
+                _ip.dst]
             return _ip
 	    
 class TCP(object):
@@ -219,6 +231,18 @@ class TCP(object):
             _tcp.window = tcph[6] # window
             _tcp.checksum = hex(tcph[7]) # checksum
             _tcp.urg = tcph[8] # urgent pointer
+            _tcp.list = [
+                _tcp.srcp,
+                _tcp.dstp,
+                _tcp.seq,
+                _tcp.ack,
+                _tcp.thl,
+                _tcp.flags,
+                _tcp.window,
+                _tcp.checksum,
+                _tcp.urg,
+                _tcp.options,
+                _tcp.payload]
             return _tcp       
 def main():
 	parser = OptionParser()
@@ -247,12 +271,12 @@ def main():
 	# TCP Header
 	tcpobj = TCP(1234, 80)
 	response = send(ipobj, tcpobj, iface="eth0", retry=1, timeout=0.3)
-	if res:
-            ip = ipobj.unpack(res)
+	if response:
+            ip = ipobj.unpack(response)
             res = res[ip.ihl:]
-            tcp = tcpobj.unpack(res)
-        print "IP Header:", ip
-        print "TCP Header:", tcp
+            tcp = tcpobj.unpack(response)
+        print "IP Header:", ip.list
+        print "TCP Header:", tcp.list
 if __name__=="__main__":
 	main()
 
