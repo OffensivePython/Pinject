@@ -1,4 +1,4 @@
 Pinject
 =======
 
-A TCP Packet Injection tool
+Raw Packet Injection tool
