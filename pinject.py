@@ -19,7 +19,7 @@ def checksum(data):
         s = (s & 0xFFFF) + (s >> 16)
     s = ~s & 0xffff
     return s
-        
+
 class layer():
     pass
 
@@ -74,7 +74,7 @@ class IP(object):
                     self.protocol,
                     socket.htons(self.checksum),
                     self.source,
-                    self.destination)  
+                    self.destination)
         return ip_header
     def unpack(self, packet):
         _ip = layer()
@@ -104,7 +104,7 @@ class IP(object):
             _ip.src,
             _ip.dst]
         return _ip
-        
+
 class TCP(object):
     def __init__(self, srcp, dstp):
         self.srcp = srcp
@@ -126,13 +126,13 @@ class TCP(object):
     def pack(self, source, destination):
         data_offset = (self.offset << 4) + 0
         flags = self.fin + (self.syn << 1) + (self.rst << 2) + (self.psh << 3) + (self.ack << 4) + (self.urg << 5)
-        tcp_header = struct.pack('!HHLLBBHHH', 
-                     self.srcp, 
-                     self.dstp, 
-                     self.seqn, 
-                     self.ackn, 
-                     data_offset, 
-                     flags,  
+        tcp_header = struct.pack('!HHLLBBHHH',
+                     self.srcp,
+                     self.dstp,
+                     self.seqn,
+                     self.ackn,
+                     data_offset,
+                     flags,
                      self.window,
                      self.checksum,
                      self.urgp)
@@ -209,7 +209,7 @@ class UDP(object):
     def pack(self, src, dst, proto=socket.IPPROTO_UDP):
         length = self.length + len(self.payload)
         pseudo_header = struct.pack('!4s4sBBH',
-            socket.inet_aton(src), socket.inet_aton(dst), 0, 
+            socket.inet_aton(src), socket.inet_aton(dst), 0,
             proto, length)
         self.checksum = checksum(pseudo_header)
         packet = struct.pack('!HHHH',
@@ -247,8 +247,8 @@ def main():
         ip = ipobj.unpack(response)
         response = response[ip.ihl:]
         tcp = tcpobj.unpack(response)
-        print "IP Header:", ip.list
-        print "TCP Header:", tcp.list
+        print("IP Header:", ip.list)
+        print("TCP Header:", tcp.list)
 
 if __name__=="__main__":
     main()
